@@ -9,7 +9,10 @@ export default function Chat() {
             </div>
             <div className='main-panel'>
                 <h2 className='panel-header'>Chat</h2>
-                <textarea className="message-box" placeholder="Send a message..." />
+                <div className='message-area'>
+                    <textarea className="message-box" placeholder="Send a message..." />
+                    <button className="submit">Submit</button>
+                </div>
             </div>
         </div>
     );
