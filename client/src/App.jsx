@@ -15,7 +15,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/applicant-chat" element={<ApplicantChat />} />
+          {/* <Route path="/applicant-chat" element={<ApplicantChat />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/recruiter" element={<Recruiter />} /> 
           <Route path="/applicant" element={<Applicant />} /> 
