@@ -6,7 +6,7 @@ export default function Recruiter() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = () => {
-    if (email === 'recruiter1@gmail.com' && password === 'password123') {
+    if (email === 'Siri@apple.com' && password === 'skibidi') {
       alert('Login Successful!');
       //Redirect to chat (recruiter dashboard) 
     }
