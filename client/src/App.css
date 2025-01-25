@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+a {
+  text-decoration: none; 
+  color: inherit; 
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -39,4 +44,41 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 15px;
+  box-shadow: 3px 3px 10px 3px darkgray; /*#dddddd*/ 
+  background-color: white;
+  color: #535bf2; 
+  height: 9vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  /*letter-spacing: 0.05rem;*/
+}
+
+.guide-creation-link {
+  border-radius: 5px;
+  color: #535bf2;
+  padding: 5px;
+}
+
+#header-spacer {
+  height: 9vh;
 }
