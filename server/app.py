@@ -50,10 +50,10 @@ def hello_world():
 def send_chat():
     new_text = request.form.get('text')
     # success = train_agent(agent_id, new_text)
-    question = get_next_prompt(user_id, job_id)
+    question = get_next_prompt('user_id', 'job_id')
 
     if not question: #no more prompts
-        send_application_to_recruiter(user_id, job_id)
+        send_application_to_recruiter('user_id', 'job_id')
         return jsonify({
             'status': 'success',
             'message': 'Application submitted'
