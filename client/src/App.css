@@ -86,21 +86,35 @@ a {
 .chat-container {
   display: flex; 
   padding-inline: 0; 
-  height: 91vh; 
+  height: auto; 
+  min-height: 91vh; 
   width: 100vw; 
 }
 
 .side-panel {
   flex: 1;
   border-right: 2px solid #535bf2;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  gap: 1rem;  
 }
 
 .main-panel {
-  flex: 2.75;
+  flex: 2;
   display: flex; 
   flex-direction: column; 
   justify-content: space-between;
   align-items: center;
+}
+
+.applicants-panel {
+  flex: 1;
+  border-left: 2px solid #535bf2;
+}
+
+.job-button {
+  width: 80%; 
 }
 
 .panel-header {
@@ -130,4 +144,10 @@ a {
   height: 70%;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+}
+
+.description-area {
+  text-align: left; 
+  padding-inline: 2rem; 
+  margin-bottom: 2rem; 
 }
