@@ -9,29 +9,29 @@ export default function ApplicantChat() {
     const [displayDescription, setDisplayDescription] = useState(false);
 
     const handleSubmit = async () => {
-        setJobDescription('RESPONSE');
-        setSubmitted(true);
+        // setJobDescription('RESPONSE');
+        // setSubmitted(true);
         
-        // const formData = new FormData();
-        // formData.append('text', jobDescription);
-        // formData.append('user_id', 'recruiter1'); // Using a default agent ID for now
-        // formData.append('job_id', 95); 
+        const formData = new FormData();
+        formData.append('text', jobDescription);
+        formData.append('user_id', 'applicant1'); // Using a default agent ID for now
+        formData.append('job_id', 95); 
 
-        // try {
-        //     const response = await fetch('http://localhost:5000/send-chat-applicant', {
-        //         method: 'POST',
-        //         body: formData
-        //     });
+        try {
+            const response = await fetch('http://localhost:5000/send-chat-applicant', {
+                method: 'POST',
+                body: formData
+            });
             
-        //     const data = await response.json();
-        //     if (data.status === 'success') {
-        //         setJobDescription(data.message);
-        //         setSubmitted(true);
-        //         console.log('Message sent successfully');
-        //     }
-        // } catch (error) {
-        //     console.error('Error sending message:', error);
-        // }
+            const data = await response.json();
+            if (data.status === 'success') {
+                setJobDescription(data.message);
+                setSubmitted(true);
+                console.log('Message sent successfully');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
     };
 
     useEffect(() => {
