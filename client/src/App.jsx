@@ -3,7 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from './Header.jsx'
 import Login from './Login.jsx'
 import Chat from './Chat.jsx'
+import ApplicantChat from './ApplicantChat.jsx' 
 import Landing from './Landing.jsx'
+import Recruiter from './Recruiter.jsx'
+import Applicant from './Applicant.jsx' 
 
 function App() {
   return (
@@ -12,7 +15,10 @@ function App() {
       <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/applicant-chat" element={<ApplicantChat />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/recruiter" element={<Recruiter />} /> 
+          <Route path="/applicant" element={<Applicant />} /> 
         </Routes>
     </BrowserRouter>
   )

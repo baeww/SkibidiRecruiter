@@ -1,37 +1,51 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Landing({ userRole }) {
+export default function Landing() {
     const navigate = useNavigate();
 
     const handleNextScreen = () => {
-        if (userRole === 'recruiter') {
-            navigate('/recruiter');
-        } else if (userRole === 'applicant') {
-            navigate('/applicant');
-        } else {
-            alert('User role is not defined. Please log in again.');
-        }
+        // if (userRole === 'recruiter') {
+        //     navigate('/recruiter');
+        // } else if (userRole === 'applicant') {
+        //     navigate('/applicant');
+        // } else {
+        //     alert('User role is not defined. Please log in again.');
+        // }
+
+        navigate('/chat'); 
     };
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.title}>Welcome to ApplicAgent</h1>
-            <p style={styles.description}>
-                ApplicAgent bridges the gap between recruiters and applicants, streamlining the hiring process and enhancing the application experience.
-            </p>
-            <div style={styles.section}>
-                <h2 style={styles.subtitle}>For Recruiters:</h2>
-                <p style={styles.text}>
-                    Connect with top talent, automate repetitive tasks, and make smarter hiring decisions with ApplicAgent.
+            {/* Centered Header Section */}
+            <div style={styles.header}>
+                <h1 style={styles.title}>Welcome to ApplicAgent</h1>
+                <p style={styles.description}>
+                    ApplicAgent bridges the gap between recruiters and applicants, streamlining the hiring process and enhancing the application experience.
                 </p>
             </div>
-            <div style={styles.section}>
-                <h2 style={styles.subtitle}>For Applicants:</h2>
-                <p style={styles.text}>
-                    Discover job opportunities effortlessly, receive tailored guidance, and stay informed throughout the application journey.
-                </p>
+
+            {/* Two-Column Layout for Recruiter and Applicant Sections */}
+            <div style={styles.columns}>
+                {/* Recruiter Section */}
+                <div style={styles.column}>
+                    <h2 style={styles.subtitle}>For Recruiters:</h2>
+                    <p style={styles.text}>
+                        Connect with top talent, automate repetitive tasks, and make smarter hiring decisions with ApplicAgent.
+                    </p>
+                </div>
+
+                {/* Applicant Section */}
+                <div style={styles.column}>
+                    <h2 style={styles.subtitle}>For Applicants:</h2>
+                    <p style={styles.text}>
+                        Discover job opportunities effortlessly, receive tailored guidance, and stay informed throughout the application journey.
+                    </p>
+                </div>
             </div>
+
+            {/* Get Started Button */}
             <button style={styles.getStartedButton} onClick={handleNextScreen}>
                 Get Started
             </button>
@@ -39,41 +53,52 @@ export default function Landing({ userRole }) {
     );
 }
 
-// Inline styles for JSX
+// Inline styles
 const styles = {
     container: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        textAlign: 'center',
         height: '100vh',
         backgroundColor: '#242424',
         color: '#ffffff',
-        padding: '0 2rem',
+        padding: '20px',
         margin: 0,
+        textAlign: 'center',
+    },
+    header: {
+        marginBottom: '2rem',
     },
     title: {
         fontSize: '3rem',
         fontWeight: 'bold',
-        marginBottom: '1.5rem',
+        marginBottom: '1rem',
         color: '#ffffff',
     },
     description: {
         fontSize: '1.5rem',
+        color: '#e2e8f0',
         marginBottom: '2rem',
         maxWidth: '800px',
         lineHeight: '1.6',
-        color: '#e2e8f0',
     },
-    section: {
-        marginBottom: '2rem',
-        maxWidth: '600px',
+    columns: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: '4rem',
+        width: '100%',
+        maxWidth: '1000px',
+        marginBottom: '3rem',
+    },
+    column: {
+        flex: 1,
+        textAlign: 'left',
     },
     subtitle: {
         fontSize: '1.75rem',
         fontWeight: '600',
-        marginBottom: '0.5rem',
+        marginBottom: '1rem',
         color: '#ffffff',
     },
     text: {

@@ -1,27 +1,31 @@
 import { useState, useEffect } from 'react'; 
 
-export default function Chat() {
+export default function ApplicantChat() {
     const jobs = ['Software Engineer', 'Data Analyst', 'Sales Manager']; 
-    const applicants = [{name: 'Saket Reddy', score: 95}, {name: 'Satya Shah', score: 90}, {name: 'Dhruvi Kadhiwala', score: 92}]
     
     const [jobDescription, setJobDescription] = useState('');
-    const [descriptionToDisplay, setDescriptionToDisplay] = useState('');
+    const [descriptionsToDisplay, setDescriptionsToDisplay] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [displayDescription, setDisplayDescription] = useState(false);
 
     const handleSubmit = async () => {
+        // setJobDescription('RESPONSE');
+        // setSubmitted(true);
+        
         const formData = new FormData();
         formData.append('text', jobDescription);
-        formData.append('agent_id', 'recruiter1'); // Using a default agent ID for now
+        formData.append('user_id', 'applicant1'); // Using a default agent ID for now
+        formData.append('job_id', 95); 
 
         try {
-            const response = await fetch('http://localhost:5000/send-chat', {
+            const response = await fetch('http://localhost:5000/send-chat-applicant', {
                 method: 'POST',
                 body: formData
             });
             
             const data = await response.json();
             if (data.status === 'success') {
+                setJobDescription(data.message);
                 setSubmitted(true);
                 console.log('Message sent successfully');
             }
@@ -32,7 +36,8 @@ export default function Chat() {
 
     useEffect(() => {
         if (submitted) {
-            setDescriptionToDisplay(jobDescription);
+            // setDescriptionsToDisplay(...jobDescription);
+            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions, jobDescription]);
             setDisplayDescription(true);
         }
         setSubmitted(false); 
@@ -45,16 +50,14 @@ export default function Chat() {
                 {jobs.map((job, index) => <button className='job-button' key={index}>{job}</button>)}
             </div>
             <div className='main-panel'>
-                <h2 className='panel-header'>Job Description</h2>
-                {displayDescription && <div className='description-area' dangerouslySetInnerHTML={{ __html: descriptionToDisplay.replace(/\n/g, '<br />') }} />}
+                <h2 className='panel-header'>Chat</h2>
+                <div className='description-area'>
+                    {displayDescription && descriptionsToDisplay.map((description, index) => <div key={index} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />)}
+                </div>
                 <div className='message-area'>
-                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(jobDescription+"\n"+e.target.value)} />
+                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
-            </div>
-            <div className='applicants-panel'>
-                <h2 className='panel-header'>Applicants</h2>
-                {applicants.map((applicant, index) => <p key={index}>{applicant.name + ', ' + applicant.score}</p>)}
             </div>
         </div>
     );
