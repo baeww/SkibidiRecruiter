@@ -13,7 +13,7 @@ export default function Landing() {
         //     alert('User role is not defined. Please log in again.');
         // }
 
-        navigate('/chat'); 
+        navigate('/login'); 
     };
 
     return (
