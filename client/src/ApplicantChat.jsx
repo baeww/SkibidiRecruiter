@@ -4,6 +4,7 @@ export default function ApplicantChat() {
     const jobs = ['Software Engineer', 'Data Analyst', 'Sales Manager']; 
     
     const [jobDescription, setJobDescription] = useState('');
+    const [response, setResponse] = useState(''); 
     const [descriptionsToDisplay, setDescriptionsToDisplay] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [displayDescription, setDisplayDescription] = useState(false);
@@ -37,8 +38,8 @@ export default function ApplicantChat() {
     useEffect(() => {
         if (submitted) {
             // setDescriptionsToDisplay(...jobDescription);
-            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions, jobDescription]);
-            setDisplayDescription(true);
+            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions, jobDescription]);  
+            setDisplayDescription(true); 
         }
         setSubmitted(false); 
     }, [submitted]);
