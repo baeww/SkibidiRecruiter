@@ -105,7 +105,7 @@ a {
   display: flex; 
   flex-direction: column; 
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .applicants-panel {
@@ -138,6 +138,7 @@ a {
 .message-area {
   display: flex; 
   width: 80%; 
+  margin-inline: auto; 
 }
 
 .submit {

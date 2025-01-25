@@ -7,7 +7,7 @@ export default function Header() {
           <div className="header-links">
             {/* <Link to="/" className="header-link" onClick={() => window.scroll(0, 0)}>Home</Link> */}
             <Link to="/login" className="header-link" onClick={() => window.scroll(0, 0)}>Log-In</Link>
-            <Link to="/chat" className="header-link" onClick={() => window.scroll(0, 0)}>Chat</Link>
+            {/* <Link to="/chat" className="header-link" onClick={() => window.scroll(0, 0)}>Chat</Link> */}
           </div>
         </nav>
         <div id="header-spacer"></div>

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Recruiter() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     if (email === 'Hoya@gmail.com' && password === 'skibidi1') {
-      alert('Login Successful!');
+      // alert('Login Successful!'); 
       //Redirect to chat (recruiter dashboard) 
+      navigate('/applicant-chat');
     }
     else {
       setErrorMessage('Invalid email or password.');

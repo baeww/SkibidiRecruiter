@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 
 export default function Chat() {
     const jobs = ['Software Engineer', 'Data Analyst', 'Sales Manager']; 
-    const applicants = [{name: 'Saket Reddy', score: 95}, {name: 'Satya Shah', score: 90}, {name: 'Dhruvi Kadhiwala', score: 92}]
+    const applicants = [
+        {name: 'Saket Reddy', score: 95, summary: 'This person is amazing!'}, 
+        {name: 'Satya Shah', score: 90, summary: 'This person is amazing!'}, 
+        {name: 'Dhruvi Kadhiwala', score: 92, summary: 'This person is amazing!'}
+    ]
     
     const [jobDescription, setJobDescription] = useState('');
     const [descriptionToDisplay, setDescriptionToDisplay] = useState('');
@@ -54,7 +58,13 @@ export default function Chat() {
             </div>
             <div className='applicants-panel'>
                 <h2 className='panel-header'>Applicants</h2>
-                {applicants.map((applicant, index) => <p key={index}>{applicant.name + ', ' + applicant.score}</p>)}
+                {/* {applicants.map((applicant, index) => <p key={index}>{applicant.name + ', ' + applicant.score}</p>)} */}
+                {applicants.map((applicant, index) => 
+                    <details key={index} style={{ "margin-bottom": "1rem" }}>
+                        <summary>{applicant.name + ', ' + applicant.score}</summary>
+                        <p style={{ "margin-bottom": "2rem" }}>{applicant.summary}</p>
+                    </details>
+                )}
             </div>
         </div>
     );
