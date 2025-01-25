@@ -37,6 +37,7 @@ export default function Chat() {
     useEffect(() => {
         if (submitted) {
             setDescriptionToDisplay(jobDescription);
+            console.log('JOB DESCRIPTION: ' + jobDescription)
             setDisplayDescription(true);
         }
         setSubmitted(false); 
@@ -52,7 +53,8 @@ export default function Chat() {
                 <h2 className='panel-header'>Job Description</h2>
                 {displayDescription && <div className='description-area' dangerouslySetInnerHTML={{ __html: descriptionToDisplay.replace(/\n/g, '<br />') }} />}
                 <div className='message-area'>
-                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(jobDescription+"\n"+e.target.value)} />
+                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
+                    {/* jobDescription+"\n"+ */}
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
