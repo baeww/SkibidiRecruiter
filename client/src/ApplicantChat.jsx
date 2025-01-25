@@ -14,7 +14,7 @@ export default function ApplicantChat() {
         
         const formData = new FormData();
         formData.append('text', jobDescription);
-        formData.append('user_id', 'applicant1'); // Using a default agent ID for now
+        formData.append('applicant_id', 'applicant3'); // Using a default agent ID for now
         formData.append('job_id', 95); 
 
         try {
@@ -61,4 +61,4 @@ export default function ApplicantChat() {
             </div>
         </div>
     );
-}
+}   
