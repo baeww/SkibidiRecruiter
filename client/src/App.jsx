@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Login from './Login.jsx'
 import Chat from './Chat.jsx'
 import Landing from './Landing.jsx'
+import Recruiter from './Recruiter.jsx'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/recruiter" element={<Recruiter />} /> 
         </Routes>
     </BrowserRouter>
   )
