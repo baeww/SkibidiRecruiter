@@ -26,7 +26,7 @@ export default function ApplicantChat() {
             
             const data = await response.json();
             if (data.status === 'success') {
-                setJobDescription(data.message);
+                setResponse(data.message);
                 setSubmitted(true);
                 console.log('Message sent successfully');
             }
@@ -38,7 +38,8 @@ export default function ApplicantChat() {
     useEffect(() => {
         if (submitted) {
             // setDescriptionsToDisplay(...jobDescription);
-            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions, jobDescription]);  
+            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions, 'You: ' + jobDescription]);  
+            setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions,  'Recruiter Agent: ' + response]);  
             setDisplayDescription(true); 
         }
         setSubmitted(false); 
@@ -52,8 +53,8 @@ export default function ApplicantChat() {
             </div>
             <div className='main-panel'>
                 <h2 className='panel-header'>Chat</h2>
-                <div className='description-area'>
-                    {displayDescription && descriptionsToDisplay.map((description, index) => <div key={index} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />)}
+                <div>
+                    {displayDescription && descriptionsToDisplay.map((description, index) => <div className='description-area' key={index} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />').replace('You', '<em><strong>You</strong></em>').replace('Recruiter Agent', '<em><strong>Recruiter Agent</strong></em>') }} />)}
                 </div>
                 <div className='message-area'>
                     <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
