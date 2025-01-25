@@ -17,7 +17,8 @@ def send_chat():
     agent_id = request.form.get('agent_id')  # Add agent_id parameter
     # print(new_text)
     # print(agent_id)
-    success = train_agent(agent_id, new_text)
+    # success = train_agent(agent_id, new_text)
+    success = True
     if success:
         return jsonify({
             'status': 'success',
