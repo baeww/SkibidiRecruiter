@@ -15,7 +15,7 @@ export default function Chat() {
         formData.append('agent_id', 'recruiter1'); // Using a default agent ID for now
 
         try {
-            const response = await fetch('http://localhost:5000/send-chat', {
+            const response = await fetch('http://localhost:5000/send-chat-recruiter', {
                 method: 'POST',
                 body: formData
             });
