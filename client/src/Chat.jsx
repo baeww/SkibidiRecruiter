@@ -54,7 +54,6 @@ export default function Chat() {
                 {displayDescription && <div className='description-area' dangerouslySetInnerHTML={{ __html: descriptionToDisplay.replace(/\n/g, '<br />') }} />}
                 <div className='message-area'>
                     <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
-                    {/* jobDescription+"\n"+ */}
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>

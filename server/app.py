@@ -5,7 +5,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from agent.interface import train_agent
+from agent.interface import add_knowledge, interview
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ def send_chat_recruiter():  # renamed to avoid duplicate function name
     agent_id = request.form.get('agent_id')  # Add agent_id parameter
     # print(new_text)
     # print(agent_id)
-    # success = train_agent(agent_id, new_text)
+    success = add_knowledge(agent_id, new_text)
     success = True
     if success:
         return jsonify({
@@ -45,10 +45,17 @@ def hello_world():
 @app.route('/send-chat-applicant', methods=['POST'])
 def send_chat_applicant():
     new_text = request.form.get('text')
-    # success = train_agent(agent_id, new_text)
-    question = get_next_prompt('user_id', 'job_id')
+    job_id = request.form.get("job_id")
+    applicant_id = request.form.get("applicant_id")
 
-    if not question: #no more prompts
+    ia = interview(job_id, applicant_id)
+
+    response = ''
+    for string in ia.pass_in_response(new_text):
+        response += string + "\n"
+
+    
+    if not ia.interview_on: #no more prompts
         send_application_to_recruiter('user_id', 'job_id')
         return jsonify({
             'status': 'success',
@@ -57,8 +64,7 @@ def send_chat_applicant():
 
     return jsonify({
         'status': 'success',
-        'prompt': question,
-        'message': 'Additional Information Requested'
+        'message': response
     })
     return
 
