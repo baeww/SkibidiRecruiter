@@ -15,7 +15,7 @@ export default function Chat() {
         formData.append('agent_id', 'recruiter1'); // Using a default agent ID for now
 
         try {
-            const response = await fetch('http://localhost:5000/send-chat-recruiter', {
+            const response = await fetch('http://localhost:5000/send-chat', {
                 method: 'POST',
                 body: formData
             });
@@ -48,7 +48,7 @@ export default function Chat() {
                 <h2 className='panel-header'>Job Description</h2>
                 {displayDescription && <div className='description-area' dangerouslySetInnerHTML={{ __html: descriptionToDisplay.replace(/\n/g, '<br />') }} />}
                 <div className='message-area'>
-                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
+                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(jobDescription+"\n"+e.target.value)} />
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
