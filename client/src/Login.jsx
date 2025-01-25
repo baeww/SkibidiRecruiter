@@ -34,7 +34,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-        backgroundColor: '#1a202c',
+        backgroundColor: '#242424',
         color: '#ffffff',
         margin: 0,
     },
