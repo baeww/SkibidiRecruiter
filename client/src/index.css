@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+input, button, select, textarea {
+  font: inherit;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
