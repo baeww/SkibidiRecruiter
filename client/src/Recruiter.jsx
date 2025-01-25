@@ -22,14 +22,28 @@ export default function Recruiter() {
         Log in to manage job postings, review applications, and connect with top talent.
       </p>
       <div style={styles.form}>
+        {/* Email Input */}
         <input
-          type="password"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={styles.input}
         />
+
+        {/* Password Input */}
+        <input 
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
+
+        {/* Error Message */}
         {errorMessage && <p style={styles.error}>{errorMessage}</p>}
+
+        {/* Login Button */}
         <button onClick={handleLogin} style={styles.loginButton}>
           Log In
         </button>
