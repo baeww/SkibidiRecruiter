@@ -54,6 +54,11 @@ class interview_agent:
         return ["Hello! Thank you for joining me today.", "Let's begin the interview. What is your name?"]
 
     def pass_in_response(self, response):
+
+        if "[END]" in response:
+            self.end_interview()
+            return ""
+
         self.messages.append({
             "role": "user", "content": response
         })
