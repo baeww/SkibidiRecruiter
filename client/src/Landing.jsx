@@ -1,17 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Landing({ userRole }) {
+export default function Landing() {
     const navigate = useNavigate();
 
     const handleNextScreen = () => {
-        if (userRole === 'recruiter') {
-            navigate('/recruiter');
-        } else if (userRole === 'applicant') {
-            navigate('/applicant');
-        } else {
-            alert('User role is not defined. Please log in again.');
-        }
+        // if (userRole === 'recruiter') {
+        //     navigate('/recruiter');
+        // } else if (userRole === 'applicant') {
+        //     navigate('/applicant');
+        // } else {
+        //     alert('User role is not defined. Please log in again.');
+        // }
+
+        navigate('/chat'); 
     };
 
     return (
