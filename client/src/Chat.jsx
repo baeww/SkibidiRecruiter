@@ -7,11 +7,28 @@ export default function Chat() {
         {name: 'Satya Shah', score: 90, summary: 'This person is amazing!'}, 
         {name: 'Dhruvi Kadhiwala', score: 92, summary: 'This person is amazing!'}
     ]
-    
+
     const [jobDescription, setJobDescription] = useState('');
     const [descriptionToDisplay, setDescriptionToDisplay] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [displayDescription, setDisplayDescription] = useState(false);
+
+    const getAllInfo = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/get-all-info', {
+                method: 'GET',
+            });
+            
+            const data = await response.json();
+            console.log(data); 
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    };
+
+    useEffect(() => {
+        getAllInfo(); 
+    }, []);
 
     const handleSubmit = async () => {
         const formData = new FormData();

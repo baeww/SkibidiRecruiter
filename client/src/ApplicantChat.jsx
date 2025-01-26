@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function ApplicantChat() {
     const jobs = ['Software Engineer', 'Data Analyst', 'Sales Manager']; 
-    
+
     const [jobDescription, setJobDescription] = useState('');
     const [response, setResponse] = useState(''); 
     const [descriptionsToDisplay, setDescriptionsToDisplay] = useState([]);
@@ -62,8 +62,8 @@ export default function ApplicantChat() {
                                 className='description-area' 
                                 key={index} 
                                 dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />')
-                                                                              .replace('You', '<em><strong>You</strong></em>')
-                                                                              .replace('Recruiter Agent', '<em><strong>Recruiter Agent</strong></em>') 
+                                                                              .replace('You:', '<em><strong>You:</strong></em>')
+                                                                              .replace('Recruiter Agent:', '<em><strong>Recruiter Agent:</strong></em>') 
                                 }} 
                             />
                         )
