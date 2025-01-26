@@ -208,16 +208,7 @@ def scoreApplicant(jobID, applicantID):
 
 
 
-score, reason = scoreApplicant("recruiter1", "applicant1")
-
-
-print(score)
-
-print(reason)
-
-
-
 # train_agent("recruiter1", "The Applicant should have ...")
-# add_knowledge("applicant1", "I have 5 years of Job experience")
+add_knowledge("applicant2", "I have 5 years of Job experience")
 # print(get_knowledge("recruiter1"))
 # print(ask_agent("recruiter1", "What should the applicant have?"))
