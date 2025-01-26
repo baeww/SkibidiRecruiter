@@ -7,7 +7,8 @@ export default function Chat() {
     //     {name: 'Satya Shah', score: 90, summary: 'Pending'}, 
     //     {name: 'Dhruvi Kadhiwala', score: 92, summary: 'Pending'}
     // ]
-    const applicants = ['Saket Reddy', 'Satya Shah', 'Dhruvi Kadhiwala', 'William Bae', 'John Doe', 'Jane Doe'] 
+    // const applicants = ['Saket Reddy', 'Satya Shah', 'Dhruvi Kadhiwala', 'William Bae', 'John Doe', 'Jane Doe', 'Johnny Appleseed'] 
+    const applicants = ['William Bae', 'Satya Shah', 'Dhruvi Kadhiwala', 'Saket Reddy'] 
     const [summaries, setSummaries] = useState([]);
     const [summariesLoaded, setSummariesLoaded] = useState(false); 
     const [scores, setScores] = useState([]);
@@ -56,7 +57,7 @@ export default function Chat() {
     const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('text', jobDescription);
-        formData.append('agent_id', 'recruiter1'); // Using a default agent ID for now
+        formData.append('agent_id', 'recruiter2'); // Using a default agent ID for now
 
         try {
             const response = await fetch('http://localhost:5000/send-chat-recruiter', {
@@ -83,6 +84,22 @@ export default function Chat() {
         setSubmitted(false); 
     }, [submitted]);
 
+    useEffect(() => {
+        const storedJobDescription = localStorage.getItem('jobDescription');
+
+        if (storedJobDescription) {
+            setJobDescription(storedJobDescription);
+            setDescriptionToDisplay(storedJobDescription);
+            setDisplayDescription(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (jobDescription) {
+            localStorage.setItem('jobDescription', jobDescription);
+        }
+    }, [jobDescription]);
+
     return (
         <div className='chat-container'>
             <div className='side-panel'>
@@ -106,11 +123,11 @@ export default function Chat() {
                         <p style={{ "marginBottom": "2rem" }}>{applicant.summary}</p>
                     </details>
                 )} */}
-                {(summariesLoaded && scoresLoaded) ? applicants.map((applicant, index) => 
+                {(summariesLoaded && scoresLoaded) ? scores.map((score, index) => 
                     <details key={index} style={{ "marginBottom": "1rem" }}>
-                        <summary>{applicant + ', ' + scores[index].score}</summary>
+                        <summary>{applicants[index] + ', ' + score.score}</summary>
                         {/* <p>{"Summary: " + summaries[index].text}</p> */}
-                        <p style={{ "marginBottom": "2rem" }}>{"Summary: " + scores[index].reason}</p>
+                        <p style={{ "marginBottom": "2rem" }}>{"Summary: " + score.reason}</p>
                     </details>
                 ) : <p>Loading...</p>}
             </div>

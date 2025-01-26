@@ -111,6 +111,7 @@ a {
 .applicants-panel {
   flex: 1;
   border-left: 2px solid #535bf2;
+  padding-inline: 2rem; 
 }
 
 .job-button {
