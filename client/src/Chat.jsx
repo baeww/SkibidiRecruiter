@@ -87,7 +87,9 @@ export default function Chat() {
         <div className='chat-container'>
             <div className='side-panel'>
                 <h2 className='panel-header'>Jobs</h2>
+                <button className='create-job-button' color='blue'>Create Job</button>
                 {jobs.map((job, index) => <button className='job-button' key={index}>{job}</button>)}
+                
             </div>
             <div className='main-panel'>
                 <h2 className='panel-header'>Job Description</h2>
