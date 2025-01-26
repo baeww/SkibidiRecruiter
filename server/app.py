@@ -34,6 +34,28 @@ def get_all_info():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+ia = interview('recruiter1', 'applicant3')
+
+uri = "mongodb+srv://agentAdmin:admin1234@knowledgebase.4qu4s.mongodb.net/?retryWrites=true&w=majority&appName=KnowledgeBase"
+client = MongoClient(uri, server_api=ServerApi('1'))
+db = client.KnowledgeBase
+agents_collection = db.agents
+
+@app.route('/get-all-info', methods=['GET'])
+def get_all_info():
+    try:
+        # Query the database for entries where 'agentID' contains 'applicant'
+        entries = agents_collection.find({'agentID': {'$regex': 'applicant'}})
+        result = []
+        for entry in entries:
+            result.append({
+                'agentID': entry['agentID'],
+                'text': entry['text']
+            })
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/send-chat-recruiter', methods=['POST'])
 def send_chat_recruiter():  # renamed to avoid duplicate function name
     new_text = request.form.get('text')
@@ -71,8 +93,6 @@ def send_chat_applicant():
     job_id = request.form.get("job_id")
     applicant_id = request.form.get("applicant_id")
 
-    ia = interview(job_id, applicant_id)
-
     response = ''
     for string in ia.pass_in_response(new_text):
         response += string + "\n"
@@ -91,28 +111,28 @@ def send_chat_applicant():
     })
     return
 
-# @app.route('/submit-application') #called upon initial application submission
-# def submit_application(): 
-#     job_id = request.args.get('job_id')
-#     user_id = request.args.get('user_id')
+@app.route('/start-application', methods=['POST']) #called upon initial application submission
+def start_application(): 
+    print("Triggered")
+    job_id = request.args.get('job_id')
+    applicant_id = request.args.get('applicant_id')
 
-#     start_convo(user_id, job_id) # adds to applied list, runs preprompt agent conversation
+    ia = interview(job_id, applicant_id)
+    response = ia.begin_interview() # adds to applied list, runs preprompt agent conversation
 
-#     #returns empty if done with prompts
-#     question = get_next_prompt(user_id, job_id)
+    
 
-#     if not question: #no more prompts
-#         send_application_to_recruiter(user_id, job_id)
-#         return jsonify({
-#             'status': 'success',
-#             'message': 'Application submitted'
-#         })
+    if not ia.interview_on: #no more prompts
+        send_application_to_recruiter('user_id', 'job_id')
+        return jsonify({
+            'status': 'success',
+            'message': 'Application Complete'
+        })
+    return jsonify({
+            'status': 'success',
+            'message': response
+        })
 
-#     return jsonify({
-#         'status': 'success',
-#         'prompt': question,
-#         'message': 'Additional Information Requested'
-#     })
 
 def get_next_prompt(user_id, job_id): #TODO: @Satya get next prompt from agent convo
     pass

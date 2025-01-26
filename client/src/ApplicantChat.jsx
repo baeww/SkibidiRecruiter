@@ -31,9 +31,36 @@ export default function ApplicantChat() {
                 setSubmitted(true);
                 // console.log('MESSAGE: ' + data.message); 
                 console.log('Message sent successfully');
+                document.getElementById('inputbox').value = "";
             }
         } catch (error) {
             console.error('Error sending message:', error);
+        }
+    };
+
+    const handleStartApplication = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/start-application', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    job_id: 'recruiter1',
+                    applicant_id: 'applicant3', // Using a default applicant ID for now
+                },
+            });
+            const data = await response.json();
+            console.log(data)
+            if (data.status === 'success') {
+                console.log('Application started successfully');
+                // setJobDescription(data.message); // Assuming the response message is the job description
+                const intro = data.message[0] + '\n' + data.message[1]
+                setDescriptionsToDisplay(prevDescriptions => ['Recruiter Agent: ' + intro]);  
+                setDisplayDescription(true);
+            }
+        } catch (error) {
+            console.error('Error starting application:', error);
         }
     };
 
@@ -51,7 +78,7 @@ export default function ApplicantChat() {
         <div className='chat-container'>
             <div className='side-panel'>
                 <h2 className='panel-header'>Jobs</h2>
-                {jobs.map((job, index) => <button className='job-button' key={index}>{job}</button>)}
+                {jobs.map((job, index) => <button className='job-button' onClick={handleStartApplication} key={index}>{job}</button>)}
             </div>
             <div className='main-panel'>
                 <h2 className='panel-header'>Chat</h2>
@@ -70,7 +97,7 @@ export default function ApplicantChat() {
                     }
                 </div>
                 <div className='message-area'>
-                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
+                    <textarea id="inputbox" className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
