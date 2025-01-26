@@ -29,6 +29,7 @@ export default function ApplicantChat() {
                 setResponse(data.message);
                 setSubmitted(true);
                 console.log('Message sent successfully');
+                document.getElementById('inputbox').value = "";
             }
         } catch (error) {
             console.error('Error sending message:', error);
@@ -53,7 +54,7 @@ export default function ApplicantChat() {
                 console.log('Application started successfully');
                 // setJobDescription(data.message); // Assuming the response message is the job description
                 const intro = data.message[0] + '\n' + data.message[1]
-                setDescriptionsToDisplay(prevDescriptions => [...prevDescriptions,  'Recruiter Agent: ' + intro]);  
+                setDescriptionsToDisplay(prevDescriptions => ['Recruiter Agent: ' + intro]);  
                 setDisplayDescription(true);
             }
         } catch (error) {
@@ -83,7 +84,7 @@ export default function ApplicantChat() {
                     {displayDescription && descriptionsToDisplay.map((description, index) => <div className='description-area' key={index} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />').replace('You', '<em><strong>You</strong></em>').replace('Recruiter Agent', '<em><strong>Recruiter Agent</strong></em>') }} />)}
                 </div>
                 <div className='message-area'>
-                    <textarea className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
+                    <textarea id="inputbox" className="message-box" placeholder="Send a message..." onChange={(e) => setJobDescription(e.target.value)} />
                     <button className="submit" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
