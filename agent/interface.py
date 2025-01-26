@@ -92,6 +92,8 @@ class interview_agent:
         self.summary = completion.choices[0].message.content
 
         add_knowledge(self.applicantID, self.summary)
+
+        print()
     
 
 
@@ -135,7 +137,6 @@ def ask_agent(agentID, question):
 
     return completion.choices[0].message.content   
 
-
 def interview(jobID, applicantID):
     # starts the Interview
     ia = interview_agent(jobID, applicantID)
@@ -153,6 +154,68 @@ def interview(jobID, applicantID):
     """
 
     return ia
+
+
+def scoreApplicant(jobID, applicantID):
+    job_description = get_knowledge(jobID)
+    applicant_info = get_knowledge(applicantID)
+
+    match_reason_prompt = f"""
+        Given the `job_description` and `applicant_info`, compare the two and identify matches and non-matches in skills, experience, and qualifications. Return a structured response.
+
+        Example Format:
+        - Matches:
+            - [list of matching skills, experiences, or qualifications]
+        - Non-Matches:
+            - [list of missing or mismatched skills, experiences, or qualifications]
+
+        Input:
+        Job Description: {job_description}
+        Applicant Information: {applicant_info}
+    """
+
+    client = OpenAI(api_key=openai_key)
+
+    match_reason = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": match_reason_prompt},
+        ]
+    ).choices[0].message.content  
+
+    generate_score_prompt = f"""
+        Based on the matches and non-matches provided, calculate a match score out of 100. A score of 100 represents a perfect match.
+        
+        Factors to consider:
+        - Total number of matches
+        - Total number of non-matches
+        - Weight key requirements higher (e.g., mandatory skills vs. nice-to-haves)
+
+        Here is a list of matches:
+        {match_reason}
+
+        Output: A match score out of 100. Only return a number and nothing else.
+    """
+
+    applicant_score = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": generate_score_prompt},
+        ]
+    ).choices[0].message.content  
+
+    return applicant_score, match_reason
+
+
+
+score, reason = scoreApplicant("recruiter1", "applicant1")
+
+
+print(score)
+
+print(reason)
+
+
 
 # train_agent("recruiter1", "The Applicant should have ...")
 # add_knowledge("applicant1", "I have 5 years of Job experience")
