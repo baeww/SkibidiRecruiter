@@ -5,15 +5,80 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from agent.interface import add_knowledge, interview
+from agent.interface import add_knowledge, interview, scoreApplicant
+
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-ia = interview('recruiter1', 'applicant3')
+# uri = "mongodb+srv://agentAdmin:admin1234@knowledgebase.4qu4s.mongodb.net/?retryWrites=true&w=majority&appName=KnowledgeBase"
+# client = MongoClient(uri, server_api=ServerApi('1'))
+# db = client.KnowledgeBase
+# agents_collection = db.agents
 
-@app.route('/send-chat-recruiter', methods=['POST'])
+# @app.route('/get-all-info', methods=['GET'])
+# def get_all_info():
+#     try:
+#         # Query the database for entries where 'agentID' contains 'applicant'
+#         entries = agents_collection.find({'agentID': {'$regex': 'applicant'}})
+#         result = []
+#         for entry in entries:
+#             result.append({
+#                 'agentID': entry['agentID'],
+#                 'text': entry['text']
+#             })
+#         return jsonify(result), 200
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500
+
+ia = interview('recruiter1', 'applicant3')          
+
+uri = "mongodb+srv://agentAdmin:admin1234@knowledgebase.4qu4s.mongodb.net/?retryWrites=true&w=majority&appName=KnowledgeBase"
+client = MongoClient(uri, server_api=ServerApi('1'))
+db = client.KnowledgeBase
+agents_collection = db.agents
+
+@app.route('/get-all-info', methods=['GET'])
+def get_all_info():
+    try:
+        # Query the database for entries where 'agentID' contains 'applicant'
+        entries = agents_collection.find({'agentID': {'$regex': 'applicant'}})
+        result = []
+        for entry in entries:
+            result.append({
+                'agentID': entry['agentID'],
+                'text': entry['text']
+            })
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/get-score', methods=['GET'])
+def get_score():
+    # job_id = request.form.get('job_id')
+    # applicant_id = request.form.get('applicant_id')
+    # score, reason = scoreApplicant(job_id, applicant_id) 
+    # return jsonify({'score': score, 'reason': reason}) 
+
+    job_id = 'recruiter1'
+
+    try:
+        entries = agents_collection.find({'agentID': {'$regex': 'applicant'}})
+        result = []
+        for entry in entries:
+            score, reason = scoreApplicant(job_id, entry['agentID'])
+            result.append({
+                'score': score,
+                'reason': reason
+            })
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500 
+
+@app.route('/send-chat-recruiter', methods=['POST']) 
 def send_chat_recruiter():  # renamed to avoid duplicate function name
     new_text = request.form.get('text')
     agent_id = request.form.get('agent_id')  # Add agent_id parameter

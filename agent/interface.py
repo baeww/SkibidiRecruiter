@@ -163,16 +163,19 @@ def scoreApplicant(jobID, applicantID):
     match_reason_prompt = f"""
         Given the `job_description` and `applicant_info`, compare the two and identify matches and non-matches in skills, experience, and qualifications. Return a structured response.
 
-        Example Format:
-        - Matches:
-            - [list of matching skills, experiences, or qualifications]
-        - Non-Matches:
-            - [list of missing or mismatched skills, experiences, or qualifications]
+        Example Format (WRITE A PARAGRAPH): 
+        Matches well in list of matching skills, experiences, or qualifications, doesn't match well in list of missing or mismatched skills, experiences, or qualifications. 
 
         Input:
         Job Description: {job_description}
         Applicant Information: {applicant_info}
     """
+
+    # Example Format:
+    #     - Matches:
+    #         - [list of matching skills, experiences, or qualifications]
+    #     - Non-Matches:
+    #         - [list of missing or mismatched skills, experiences, or qualifications]
 
     client = OpenAI(api_key=openai_key)
 
