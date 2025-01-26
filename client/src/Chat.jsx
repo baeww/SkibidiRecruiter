@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 export default function Chat() {
     const jobs = ['Software Engineer', 'Data Analyst', 'Sales Manager']; 
     const applicants = [
-        {name: 'Saket Reddy', score: 95, summary: 'This person is amazing!'}, 
-        {name: 'Satya Shah', score: 20, summary: 'This person would be horrible intern!'}, 
-        {name: 'Dhruvi Kadhiwala', score: 92, summary: 'This person is amazing!'}
+        {name: 'Saket Reddy', score: 95, summary: 'Pending'}, 
+        {name: 'Satya Shah', score: 90, summary: 'Pending'}, 
+        {name: 'Dhruvi Kadhiwala', score: 92, summary: 'Pending'}
     ]
     
     const [jobDescription, setJobDescription] = useState('');
